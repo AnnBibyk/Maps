@@ -9,21 +9,31 @@
 /* Begin PBXBuildFile section */
 		15DFEEB2240EDED3006BA001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEB1240EDED3006BA001 /* AppDelegate.swift */; };
 		15DFEEB4240EDED3006BA001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEB3240EDED3006BA001 /* SceneDelegate.swift */; };
-		15DFEEB6240EDED3006BA001 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEB5240EDED3006BA001 /* ViewController.swift */; };
 		15DFEEB9240EDED3006BA001 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15DFEEB7240EDED3006BA001 /* Main.storyboard */; };
 		15DFEEBB240EDED5006BA001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15DFEEBA240EDED5006BA001 /* Assets.xcassets */; };
 		15DFEEBE240EDED5006BA001 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15DFEEBC240EDED5006BA001 /* LaunchScreen.storyboard */; };
+		15DFEEC6240EE461006BA001 /* DeviceMemoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEC5240EE461006BA001 /* DeviceMemoryCell.swift */; };
+		15DFEEC8240EE479006BA001 /* CountryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEC7240EE479006BA001 /* CountryListCell.swift */; };
+		15DFEECA240EE49B006BA001 /* RegionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEC9240EE49B006BA001 /* RegionListCell.swift */; };
+		15DFEECC240EE8E3006BA001 /* CountryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEECB240EE8E3006BA001 /* CountryListTableViewController.swift */; };
+		15DFEECE240EF37B006BA001 /* regions.xml in Resources */ = {isa = PBXBuildFile; fileRef = 15DFEECD240EF37B006BA001 /* regions.xml */; };
+		15DFEED0240EF439006BA001 /* CountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEECF240EF439006BA001 /* CountryModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		15DFEEAE240EDED3006BA001 /* Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Maps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15DFEEB1240EDED3006BA001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15DFEEB3240EDED3006BA001 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		15DFEEB5240EDED3006BA001 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		15DFEEB8240EDED3006BA001 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		15DFEEBA240EDED5006BA001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		15DFEEBD240EDED5006BA001 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		15DFEEBF240EDED5006BA001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15DFEEC5240EE461006BA001 /* DeviceMemoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceMemoryCell.swift; sourceTree = "<group>"; };
+		15DFEEC7240EE479006BA001 /* CountryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListCell.swift; sourceTree = "<group>"; };
+		15DFEEC9240EE49B006BA001 /* RegionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionListCell.swift; sourceTree = "<group>"; };
+		15DFEECB240EE8E3006BA001 /* CountryListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListTableViewController.swift; sourceTree = "<group>"; };
+		15DFEECD240EF37B006BA001 /* regions.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = regions.xml; sourceTree = "<group>"; };
+		15DFEECF240EF439006BA001 /* CountryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +68,13 @@
 			children = (
 				15DFEEB1240EDED3006BA001 /* AppDelegate.swift */,
 				15DFEEB3240EDED3006BA001 /* SceneDelegate.swift */,
-				15DFEEB5240EDED3006BA001 /* ViewController.swift */,
+				15DFEECB240EE8E3006BA001 /* CountryListTableViewController.swift */,
+				15DFEEC5240EE461006BA001 /* DeviceMemoryCell.swift */,
+				15DFEEC7240EE479006BA001 /* CountryListCell.swift */,
+				15DFEEC9240EE49B006BA001 /* RegionListCell.swift */,
+				15DFEECF240EF439006BA001 /* CountryModel.swift */,
 				15DFEEB7240EDED3006BA001 /* Main.storyboard */,
+				15DFEECD240EF37B006BA001 /* regions.xml */,
 				15DFEEBA240EDED5006BA001 /* Assets.xcassets */,
 				15DFEEBC240EDED5006BA001 /* LaunchScreen.storyboard */,
 				15DFEEBF240EDED5006BA001 /* Info.plist */,
@@ -126,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15DFEEBE240EDED5006BA001 /* LaunchScreen.storyboard in Resources */,
+				15DFEECE240EF37B006BA001 /* regions.xml in Resources */,
 				15DFEEBB240EDED5006BA001 /* Assets.xcassets in Resources */,
 				15DFEEB9240EDED3006BA001 /* Main.storyboard in Resources */,
 			);
@@ -138,8 +154,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				15DFEEB6240EDED3006BA001 /* ViewController.swift in Sources */,
+				15DFEED0240EF439006BA001 /* CountryModel.swift in Sources */,
+				15DFEEC8240EE479006BA001 /* CountryListCell.swift in Sources */,
 				15DFEEB2240EDED3006BA001 /* AppDelegate.swift in Sources */,
+				15DFEECA240EE49B006BA001 /* RegionListCell.swift in Sources */,
+				15DFEECC240EE8E3006BA001 /* CountryListTableViewController.swift in Sources */,
+				15DFEEC6240EE461006BA001 /* DeviceMemoryCell.swift in Sources */,
 				15DFEEB4240EDED3006BA001 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
