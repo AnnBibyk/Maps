@@ -13,7 +13,7 @@ class CountryListCell: UITableViewCell {
     @IBOutlet weak var mapIconImage: UIImageView!
     @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var downloadButton: UIButton!
-    
+    @IBOutlet weak var downloadingProgress: UIProgressView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,6 +28,7 @@ class CountryListCell: UITableViewCell {
     
     @IBAction func downloadButtonPressed(_ sender: Any) {
         print("Download")
+        downloadingProgress.isHidden = false
     }
     
 }

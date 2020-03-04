@@ -10,26 +10,45 @@ import UIKit
 
 class CountryListTableViewController: UITableViewController {
 
-    let countriesList = ["Ukraine", "USA", "Canada", "Australia", "Germany"]
     var countries: [Country] = []
     var elementName: String = String()
     var countryName = String()
-    //var bookAuthor = String()
+    var totalDeviceSpace : String = {
+        var totalSpace = String()
+        totalSpace = UIDevice.current.totalDiskSpaceInGB
+        return totalSpace
+    }()
+    
+    var freeDeviceSpace : String = {
+        let freeSpace = UIDevice.current.freeDiskSpaceInGB
+        return freeSpace
+    }()
+    
+    var usedDeviceSpace : String = {
+        let usedSpace = UIDevice.current.usedDiskSpaceInGB
+        return usedSpace
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let path = Bundle.main.url(forResource: "regions", withExtension: "xml") {
-            if let parser = XMLParser(contentsOf: path) {
-                parser.delegate = self
-                parser.parse()
+        fetchData()
+    }
+    
+    private func fetchData() {
+        let coutryParser = CountryListParser()
+        
+        coutryParser.parseCountriesList { (countryItems) in
+            self.countries = countryItems
+            self.countries.sort() {
+                $0.countryName < $1.countryName
             }
+            print(self.countries)
+            print("!!!")
         }
-        print(countries)
-        print("!!!")
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view configuration
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -39,19 +58,30 @@ class CountryListTableViewController: UITableViewController {
         if section == 0 {
             return 1
         } else {
-            return countriesList.count
+            return countries.count
         }
-       
+
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
+            let totalMemory = totalDeviceSpace.floatValue
+            let usedMemory = usedDeviceSpace.floatValue
             let cell = tableView.dequeueReusableCell(withIdentifier: "deviceMemoryCell", for: indexPath) as! DeviceMemoryCell
+            cell.memoryCapacityLabel.text = "Free \(freeDeviceSpace)"
+            cell.deviceMemoryBar.setProgress(0.0, animated: false)
+            cell.deviceMemoryBar.layer.cornerRadius = 8
+            cell.deviceMemoryBar.layer.sublayers![1].cornerRadius = 8
+            cell.deviceMemoryBar.subviews[1].clipsToBounds = true
+            cell.deviceMemoryBar.clipsToBounds = true
+            cell.deviceMemoryBar.progress = usedMemory / totalMemory
+
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "countryCell", for: indexPath) as! CountryListCell
-            cell.countryNameLabel.text = countriesList[indexPath.row]
+            cell.countryNameLabel.text = countries[indexPath.row].countryName
+            cell.downloadingProgress.isHidden = true
             return cell
         }
         
@@ -66,40 +96,3 @@ class CountryListTableViewController: UITableViewController {
     
 }
 
-extension CountryListTableViewController: XMLParserDelegate {
-    
-    // 1
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-
-        if elementName == "region" {
-            countryName = String()
-            //bookAuthor = String()
-        }
-
-        self.elementName = elementName
-    }
-
-    // 2
-    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if elementName == "region" {
-            let country = Country(countryName: countryName)
-            countries.append(country)
-        }
-    }
-
-    // 3
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
-        let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-
-        if (!data.isEmpty) {
-            if self.elementName == "name" {
-                print(self.elementName)
-                countryName += data
-            }
-//            else if self.elementName == "author" {
-//                bookAuthor += data
-//            }
-        }
-    }
-    
-}

@@ -11,6 +11,7 @@ import UIKit
 class DeviceMemoryCell: UITableViewCell {
 
     @IBOutlet weak var memoryCapacityLabel: UILabel!
+    @IBOutlet weak var deviceMemoryBar: UIProgressView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
