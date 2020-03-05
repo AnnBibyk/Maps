@@ -10,7 +10,7 @@ import UIKit
 
 class CountryListTableViewController: UITableViewController {
 
-    var countries: [Country] = []
+    var countries: [Region] = []
     var elementName: String = String()
     var countryName = String()
     var totalDeviceSpace : String = {
@@ -39,12 +39,10 @@ class CountryListTableViewController: UITableViewController {
         let coutryParser = CountryListParser()
         
         coutryParser.parseCountriesList { (countryItems) in
-            self.countries = countryItems
+            self.countries = countryItems[0].regions!
             self.countries.sort() {
-                $0.countryName < $1.countryName
+                $0.regionName < $1.regionName
             }
-            print(self.countries)
-            print("!!!")
         }
     }
 
@@ -80,8 +78,7 @@ class CountryListTableViewController: UITableViewController {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "countryCell", for: indexPath) as! CountryListCell
-            cell.countryNameLabel.text = countries[indexPath.row].countryName
-            cell.downloadingProgress.isHidden = true
+            cell.configure(region: countries[indexPath.row], downloaded: false)
             return cell
         }
         

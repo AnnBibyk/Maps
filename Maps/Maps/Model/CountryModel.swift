@@ -8,12 +8,13 @@
 
 import Foundation
 
-struct Country {
-    var countryName: String
-    var joinMapFiles: Bool?
-    var region: [Country]?
-    
-}
 struct Region {
     var regionName: String
+    var type: String?
+    var innerDownloadSuffix: String?
+    var innerDownloadPrefix: String?
+    var map: Bool?
+    var joinMapFiles: Bool?
+    var regions: [Region]?
+    
 }
