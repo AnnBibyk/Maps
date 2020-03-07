@@ -56,16 +56,18 @@ class CountryListParser: NSObject, XMLParserDelegate {
                 downloadPrefix = regionItem[i+1].regionName
             }
             
+            let region = Region(regionName: countryName)
+            region.type = type
+            region.innerDownloadSuffix = innerDownloadSuffix
+            region.downloadSuffix = downloadSuffix
+            region.innerDownloadPrefix = innerDownloadPrefix
+            region.downloadPrefix = downloadPrefix
+            region.map = map
+            region.joinMapFiles = joinMapFiles
+            region.regions = regions
             
-            regionItem.append(Region(regionName: countryName,
-                                     type: type,
-                                     innerDownloadSuffix: innerDownloadSuffix,
-                                     downloadSuffix: downloadSuffix,
-                                     innerDownloadPrefix: innerDownloadPrefix,
-                                     downloadPrefix: downloadPrefix,
-                                     map: map,
-                                     joinMapFiles: joinMapFiles,
-                                     regions: regions))
+            regionItem.append(region)
+            
         }
     }
     

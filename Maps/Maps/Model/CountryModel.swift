@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Region {
+class Region {
     var regionName: String
     var type: String?
     var innerDownloadSuffix: String?
@@ -20,4 +20,8 @@ struct Region {
     var regions: [Region]?
 
     var downloaded = false
+    
+    init(regionName: String) {
+        self.regionName = regionName
+    }
 }
