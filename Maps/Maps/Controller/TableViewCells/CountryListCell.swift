@@ -20,7 +20,6 @@ class CountryListCell: UITableViewCell {
     @IBOutlet weak var downloadingProgress: UIProgressView!
     
     var delegate: CountryListCellDelegate?
-    var downloadOper :DownloadOperation?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,7 +36,7 @@ class CountryListCell: UITableViewCell {
             downloadButton.setImage(UIImage(named: "ic_custom_chevron"), for: .normal)
             downloadButton.isUserInteractionEnabled = false
         } else {
-            downloadButton.setImage(UIImage(named: "ic_custom_dowload")!.withRenderingMode(.alwaysTemplate), for: .normal)
+            downloadButton.setImage(UIImage(named: "ic_custom_dowload")?.withRenderingMode(.alwaysTemplate), for: .normal)
             downloadButton.isUserInteractionEnabled = region.downloaded ? false : true
             downloadButton.tintColor = region.downloaded ? .lightGray : .orange
         }

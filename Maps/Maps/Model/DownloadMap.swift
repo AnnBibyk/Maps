@@ -19,15 +19,14 @@ class DownloadMap  {
     var region : Region?
     var vc : UITableViewController?
     let baseURL = "http://download.osmand.net/download.php?standard=yes&file="
-    let queue = OperationQueue()
+    let queue: OperationQueue?
     var delegate : UpdateCellViewDelegate?
     
-    init(vc : UITableViewController, region : Region, indexPath : IndexPath) {
+    init(vc : UITableViewController, region : Region,queue:OperationQueue, indexPath : IndexPath) {
         self.vc = vc
         self.region = region
         self.indexPath = indexPath
-        
-        queue.maxConcurrentOperationCount = 1
+        self.queue = queue
     }
     
     func getDownloadName(region: Region)->String{
@@ -44,18 +43,17 @@ class DownloadMap  {
     }
     
     func startDownloading() {
-        let url = URL(string: "\(baseURL)\(getDownloadName(region: region!))")
+        guard let url = URL(string: "\(baseURL)\(getDownloadName(region: region!))") else { return }
         
-        let operation = DownloadOperation(session: URLSession.shared, downloadTaskURL: url!, completionHandler: { (localURL, response, error) in
+        let operation = DownloadOperation(session: URLSession.shared, downloadTaskURL: url, completionHandler: { (localURL, response, error) in
             if error != nil {
                 print("Downloading Error \(String(describing: error))")
-                self.vc!.alertCall(message: "The map could't been downloaded. Error: \(String(describing: error))")
+                self.vc?.alertCall(message: "The map could't been downloaded. Error: \(String(describing: error))")
             }
             if let httpResponse = response as? HTTPURLResponse{
                 if httpResponse.statusCode == 200 {
                     print("Downloading successfully finished")
                     DispatchQueue.main.async {
-                        //self.region?.downloaded = true
                         self.delegate?.updateCellView(downloaded: true, indexPath: self.indexPath!)
                     }
                 } else {
@@ -67,15 +65,17 @@ class DownloadMap  {
             }
         })
         operation.delegate = self
-        queue.addOperation(operation)
+        queue?.addOperation(operation)
     }
 }
+
+// MARK: - Download Process Updating
 
 extension DownloadMap : DownloadOperatorDelegate {
     
     func updateProgress(progress: Float) {
         DispatchQueue.main.async {
-            if let regionCell = self.vc!.tableView.cellForRow(at: IndexPath(row: self.indexPath!.row, section: self.indexPath!.section)) as? CountryListCell {
+            if let regionCell = self.vc?.tableView.cellForRow(at: IndexPath(row: self.indexPath!.row, section: self.indexPath!.section)) as? CountryListCell {
                 regionCell.updateDisplay(progress:progress)
             }
         }

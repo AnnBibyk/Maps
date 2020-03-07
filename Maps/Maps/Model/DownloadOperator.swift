@@ -24,7 +24,7 @@ class DownloadOperation : Operation {
     private var observation: NSKeyValueObservation?
     var downloadProgress : Float?
     var delegate: DownloadOperatorDelegate?
-
+    
     private var state : OperationState = .ready {
         willSet {
             self.willChangeValue(forKey: "isExecuting")
@@ -75,9 +75,7 @@ class DownloadOperation : Operation {
     
     override func cancel() {
         super.cancel()
-        
         self.task.cancel()
     }
-
 }
 

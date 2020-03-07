@@ -11,6 +11,7 @@ import UIKit
 class CountryListTableViewController: UITableViewController {
     
     var countries: [Region] = []
+    var queue = OperationQueue()
     var selectedCountry : IndexPath?
     var totalDeviceSpace : String = {
         var totalSpace = String()
@@ -30,6 +31,7 @@ class CountryListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        queue.maxConcurrentOperationCount = 1
         fetchData()
         
     }
@@ -38,6 +40,8 @@ class CountryListTableViewController: UITableViewController {
         freeDeviceSpace = UIDevice.current.freeDiskSpaceInGB
         tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
     }
+    
+    // MARK: - Data Fetching
     
     private func fetchData() {
         let coutryParser = CountryListParser()
@@ -81,6 +85,8 @@ class CountryListTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - Moving to the second View
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedCountry = indexPath
         
@@ -97,6 +103,8 @@ class CountryListTableViewController: UITableViewController {
             }
         }
     }
+    
+    // MARK: - Table View Section Configuration
     
     public override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 1 {
@@ -129,18 +137,24 @@ class CountryListTableViewController: UITableViewController {
     }
 }
 
+// MARK: - Download Button Pressed
+
 extension CountryListTableViewController: CountryListCellDelegate {
     
     func downloadButtonPressed(_ cell: CountryListCell) {
         
         if let indexPath = tableView.indexPath(for: cell) {
             
-            let downloadMap = DownloadMap(vc: self, region: countries[indexPath.row], indexPath: indexPath)
+            let downloadMap = DownloadMap(vc: self, region: countries[indexPath.row], queue: queue, indexPath: indexPath)
+            cell.downloadingProgress.isHidden = false
+            cell.downloadButton.isEnabled = false
             downloadMap.delegate = self
             downloadMap.startDownloading()
         }
     }
 }
+
+// MARK: - Update Cell View
 
 extension CountryListTableViewController : UpdateCellViewDelegate {
     func updateCellView(downloaded: Bool, indexPath: IndexPath) {

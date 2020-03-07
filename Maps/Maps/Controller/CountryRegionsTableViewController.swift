@@ -11,13 +11,15 @@ import UIKit
 class CountryRegionsTableViewController: UITableViewController {
 
     var regions = [Region]()
+    var queue = OperationQueue()
     var country = String()
     var selectedRow = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        queue.maxConcurrentOperationCount = 1
         self.navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationItem.backBarButtonItem?.title = ""
     }
 
     // MARK: - Table view data source
@@ -66,22 +68,23 @@ class CountryRegionsTableViewController: UITableViewController {
     }
 }
 
+// MARK: - DownloadButtonPressed
+
 extension CountryRegionsTableViewController: CountryListCellDelegate {
     
     func downloadButtonPressed(_ cell: CountryListCell) {
         
         if let indexPath = tableView.indexPath(for: cell) {
-            
-            regions[indexPath.row].downloaded = false
-            selectedRow = indexPath.row
-            let downloadMap = DownloadMap(vc: self, region: regions[indexPath.row], indexPath: indexPath)
+            let downloadMap = DownloadMap(vc: self, region: regions[indexPath.row], queue: queue, indexPath: indexPath)
+            cell.downloadingProgress.isHidden = false
+            cell.downloadButton.isEnabled = false
             downloadMap.delegate = self
             downloadMap.startDownloading()
-    
         }
-        
     }
 }
+
+// MARK: - UpdateCellView
 
 extension CountryRegionsTableViewController : UpdateCellViewDelegate {
     func updateCellView(downloaded: Bool, indexPath: IndexPath) {
