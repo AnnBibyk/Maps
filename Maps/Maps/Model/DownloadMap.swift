@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol UpdateCellViewDelegate {
+    func updateCellView(downloaded: Bool, indexPath: IndexPath)
+}
+
 class DownloadMap  {
     
     var indexPath: IndexPath?
@@ -16,6 +20,7 @@ class DownloadMap  {
     var vc : UITableViewController?
     let baseURL = "http://download.osmand.net/download.php?standard=yes&file="
     let queue = OperationQueue()
+    var delegate : UpdateCellViewDelegate?
     
     init(vc : UITableViewController, region : Region, indexPath : IndexPath) {
         self.vc = vc
@@ -49,9 +54,9 @@ class DownloadMap  {
             if let httpResponse = response as? HTTPURLResponse{
                 if httpResponse.statusCode == 200 {
                     print("Downloading successfully finished")
-                    self.region?.downloaded = true
                     DispatchQueue.main.async {
-                        self.vc?.reloadCellData(self.indexPath!)
+                        //self.region?.downloaded = true
+                        self.delegate?.updateCellView(downloaded: true, indexPath: self.indexPath!)
                     }
                 } else {
                     print("Downloading error -> \(httpResponse.statusCode.description)")
@@ -68,7 +73,7 @@ class DownloadMap  {
 
 extension DownloadMap : DownloadOperatorDelegate {
     
-    func updateProgress(progress: Float, wait: Bool) {
+    func updateProgress(progress: Float) {
         DispatchQueue.main.async {
             if let regionCell = self.vc!.tableView.cellForRow(at: IndexPath(row: self.indexPath!.row, section: self.indexPath!.section)) as? CountryListCell {
                 regionCell.updateDisplay(progress:progress)

@@ -37,26 +37,23 @@ class CountryListCell: UITableViewCell {
             downloadButton.setImage(UIImage(named: "ic_custom_chevron"), for: .normal)
             downloadButton.isUserInteractionEnabled = false
         } else {
-            downloadButton.setImage(UIImage(named: "ic_custom_dowload"), for: .normal)
-            //self.isUserInteractionEnabled = false
+            downloadButton.setImage(UIImage(named: "ic_custom_dowload")!.withRenderingMode(.alwaysTemplate), for: .normal)
+            downloadButton.isUserInteractionEnabled = region.downloaded ? false : true
+            downloadButton.tintColor = region.downloaded ? .lightGray : .orange
         }
         downloadingProgress.isHidden = true
         mapIconImage.image = mapIconImage.image?.withRenderingMode(.alwaysTemplate)
         mapIconImage.tintColor = region.downloaded ? .systemGreen : .lightGray
+        
     }
     
     @IBAction func downloadButtonPressed(_ sender: AnyObject) {
-        
         delegate?.downloadButtonPressed(self)
-        print("Download")
     }
     
     func updateDisplay(progress: Float) {
-        print(progress)
         downloadingProgress.isHidden = false
         downloadingProgress.progress = progress
         downloadButton.isUserInteractionEnabled = true
-        
     }
-    
 }

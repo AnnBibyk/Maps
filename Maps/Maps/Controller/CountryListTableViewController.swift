@@ -11,7 +11,7 @@ import UIKit
 class CountryListTableViewController: UITableViewController {
     
     var countries: [Region] = []
-    var selectedRow = Int()
+    var selectedCountry : IndexPath?
     var totalDeviceSpace : String = {
         var totalSpace = String()
         totalSpace = UIDevice.current.totalDiskSpaceInGB
@@ -28,13 +28,15 @@ class CountryListTableViewController: UITableViewController {
         return usedSpace
     }()
     
-    //var downloaded = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         fetchData()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        freeDeviceSpace = UIDevice.current.freeDiskSpaceInGB
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
     }
     
     private func fetchData() {
@@ -47,13 +49,6 @@ class CountryListTableViewController: UITableViewController {
             }
         }
     }
-    
-    let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    
-    func localFilePath(for url: URL) -> URL {
-        return documentsPath.appendingPathComponent(url.lastPathComponent)
-    }
-    
     // MARK: - Table view configuration
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -87,7 +82,7 @@ class CountryListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedRow = indexPath.row
+        selectedCountry = indexPath
         
         self.performSegue(withIdentifier: "goToRegions", sender: nil)
         
@@ -97,8 +92,8 @@ class CountryListTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToRegions" {
             if let vc = segue.destination as? CountryRegionsTableViewController {
-                vc.regions = countries[selectedRow].regions!
-                vc.country = countries[selectedRow].regionName
+                vc.regions = countries[self.selectedCountry!.row].regions!
+                vc.country = countries[self.selectedCountry!.row].regionName
             }
         }
     }
@@ -125,6 +120,13 @@ class CountryListTableViewController: UITableViewController {
         return headerView
     }
     
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        
+        if countries[indexPath.row].regions?.count == 0 {
+            return nil
+        }
+        return indexPath
+    }
 }
 
 extension CountryListTableViewController: CountryListCellDelegate {
@@ -133,15 +135,18 @@ extension CountryListTableViewController: CountryListCellDelegate {
         
         if let indexPath = tableView.indexPath(for: cell) {
             
-            countries[indexPath.row].downloaded = false
-            selectedRow = indexPath.row
             let downloadMap = DownloadMap(vc: self, region: countries[indexPath.row], indexPath: indexPath)
-            
+            downloadMap.delegate = self
             downloadMap.startDownloading()
-    
         }
-        
     }
 }
 
-
+extension CountryListTableViewController : UpdateCellViewDelegate {
+    func updateCellView(downloaded: Bool, indexPath: IndexPath) {
+        countries[indexPath.row].downloaded = downloaded
+        freeDeviceSpace = UIDevice.current.freeDiskSpaceInGB
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+}

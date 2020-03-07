@@ -18,7 +18,6 @@ class CountryRegionsTableViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationItem.backBarButtonItem?.title = ""
-        
     }
 
     // MARK: - Table view data source
@@ -57,6 +56,14 @@ class CountryRegionsTableViewController: UITableViewController {
 
         return headerView
     }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        
+        if regions[indexPath.row].regions?.count == 0 {
+            return nil
+        }
+        return indexPath
+    }
 }
 
 extension CountryRegionsTableViewController: CountryListCellDelegate {
@@ -68,9 +75,17 @@ extension CountryRegionsTableViewController: CountryListCellDelegate {
             regions[indexPath.row].downloaded = false
             selectedRow = indexPath.row
             let downloadMap = DownloadMap(vc: self, region: regions[indexPath.row], indexPath: indexPath)
+            downloadMap.delegate = self
             downloadMap.startDownloading()
     
         }
         
+    }
+}
+
+extension CountryRegionsTableViewController : UpdateCellViewDelegate {
+    func updateCellView(downloaded: Bool, indexPath: IndexPath) {
+        regions[indexPath.row].downloaded = downloaded
+        tableView.reloadRows(at: [indexPath], with: .none)
     }
 }

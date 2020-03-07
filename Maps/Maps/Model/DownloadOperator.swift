@@ -9,7 +9,7 @@
 import Foundation
 
 protocol DownloadOperatorDelegate {
-    func updateProgress(progress: Float, wait: Bool)
+    func updateProgress(progress: Float)
 }
 
 enum OperationState : Int {
@@ -24,8 +24,7 @@ class DownloadOperation : Operation {
     private var observation: NSKeyValueObservation?
     var downloadProgress : Float?
     var delegate: DownloadOperatorDelegate?
-    var wait = false
-    
+
     private var state : OperationState = .ready {
         willSet {
             self.willChangeValue(forKey: "isExecuting")
@@ -65,9 +64,7 @@ class DownloadOperation : Operation {
         
         observation = task.progress.observe(\.fractionCompleted) { progress, _ in
             self.downloadProgress = Float(progress.fractionCompleted)
-            self.wait = self.downloadProgress == 1.0 ? false : true
-            print(self.wait)
-            self.delegate?.updateProgress(progress: self.downloadProgress!, wait: self.wait)
+            self.delegate?.updateProgress(progress: self.downloadProgress!)
         }
         self.task.resume()
     }
