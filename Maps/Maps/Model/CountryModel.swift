@@ -12,9 +12,12 @@ struct Region {
     var regionName: String
     var type: String?
     var innerDownloadSuffix: String?
+    var downloadSuffix: String?
     var innerDownloadPrefix: String?
+    var downloadPrefix: String?
     var map: Bool?
     var joinMapFiles: Bool?
     var regions: [Region]?
-    
+
+    var downloaded = false
 }

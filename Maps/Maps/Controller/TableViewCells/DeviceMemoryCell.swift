@@ -15,13 +15,25 @@ class DeviceMemoryCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    }
+    
+    func configure(totalMemory: String, usedMemory: String, freeDeviceSpace: String) {
+        
+        let totalMemory = totalMemory.floatValue
+        let usedMemory = usedMemory.floatValue
+        
+        memoryCapacityLabel.text = "Free \(freeDeviceSpace)"
+        deviceMemoryBar.setProgress(0.0, animated: false)
+        deviceMemoryBar.layer.cornerRadius = 8
+        deviceMemoryBar.layer.sublayers![1].cornerRadius = 8
+        deviceMemoryBar.subviews[1].clipsToBounds = true
+        deviceMemoryBar.clipsToBounds = true
+        deviceMemoryBar.progress = usedMemory / totalMemory
+        
     }
 
 }

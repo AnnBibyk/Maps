@@ -14,13 +14,14 @@
 		15DFEEBE240EDED5006BA001 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15DFEEBC240EDED5006BA001 /* LaunchScreen.storyboard */; };
 		15DFEEC6240EE461006BA001 /* DeviceMemoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEC5240EE461006BA001 /* DeviceMemoryCell.swift */; };
 		15DFEEC8240EE479006BA001 /* CountryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEC7240EE479006BA001 /* CountryListCell.swift */; };
-		15DFEECA240EE49B006BA001 /* RegionListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEC9240EE49B006BA001 /* RegionListCell.swift */; };
 		15DFEECC240EE8E3006BA001 /* CountryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEECB240EE8E3006BA001 /* CountryListTableViewController.swift */; };
 		15DFEECE240EF37B006BA001 /* regions.xml in Resources */ = {isa = PBXBuildFile; fileRef = 15DFEECD240EF37B006BA001 /* regions.xml */; };
 		15DFEED0240EF439006BA001 /* CountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEECF240EF439006BA001 /* CountryModel.swift */; };
 		15DFEED2240F96B2006BA001 /* CountryListParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEED1240F96B2006BA001 /* CountryListParser.swift */; };
 		15DFEED4240FC77C006BA001 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEED3240FC77C006BA001 /* Extensions.swift */; };
-		15DFEEDD241011B3006BA001 /* DownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEDC241011B3006BA001 /* DownloadOperation.swift */; };
+		15DFEEDF24111F6C006BA001 /* CountryRegionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEDE24111F6C006BA001 /* CountryRegionsTableViewController.swift */; };
+		15DFEEE5241193EE006BA001 /* DownloadOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEE4241193EE006BA001 /* DownloadOperator.swift */; };
+		15DFEEE72412FDE6006BA001 /* DownloadMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DFEEE62412FDE6006BA001 /* DownloadMap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,13 +34,14 @@
 		15DFEEBF240EDED5006BA001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15DFEEC5240EE461006BA001 /* DeviceMemoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceMemoryCell.swift; sourceTree = "<group>"; };
 		15DFEEC7240EE479006BA001 /* CountryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListCell.swift; sourceTree = "<group>"; };
-		15DFEEC9240EE49B006BA001 /* RegionListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionListCell.swift; sourceTree = "<group>"; };
 		15DFEECB240EE8E3006BA001 /* CountryListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListTableViewController.swift; sourceTree = "<group>"; };
 		15DFEECD240EF37B006BA001 /* regions.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = regions.xml; sourceTree = "<group>"; };
 		15DFEECF240EF439006BA001 /* CountryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryModel.swift; sourceTree = "<group>"; };
 		15DFEED1240F96B2006BA001 /* CountryListParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListParser.swift; sourceTree = "<group>"; };
 		15DFEED3240FC77C006BA001 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		15DFEEDC241011B3006BA001 /* DownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DownloadOperation.swift; path = Maps/DownloadOperation.swift; sourceTree = SOURCE_ROOT; };
+		15DFEEDE24111F6C006BA001 /* CountryRegionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryRegionsTableViewController.swift; sourceTree = "<group>"; };
+		15DFEEE4241193EE006BA001 /* DownloadOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadOperator.swift; sourceTree = "<group>"; };
+		15DFEEE62412FDE6006BA001 /* DownloadMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadMap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +76,6 @@
 			children = (
 				15DFEEB1240EDED3006BA001 /* AppDelegate.swift */,
 				15DFEEB3240EDED3006BA001 /* SceneDelegate.swift */,
-				15DFEEDC241011B3006BA001 /* DownloadOperation.swift */,
 				15DFEEBF240EDED5006BA001 /* Info.plist */,
 				15DFEED6240FF63E006BA001 /* Model */,
 				15DFEED5240FF62E006BA001 /* Controller */,
@@ -90,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				15DFEECB240EE8E3006BA001 /* CountryListTableViewController.swift */,
+				15DFEEDE24111F6C006BA001 /* CountryRegionsTableViewController.swift */,
 				15DFEED7240FF66C006BA001 /* TableViewCells */,
 			);
 			path = Controller;
@@ -98,9 +100,10 @@
 		15DFEED6240FF63E006BA001 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				15DFEECD240EF37B006BA001 /* regions.xml */,
-				15DFEED1240F96B2006BA001 /* CountryListParser.swift */,
 				15DFEECF240EF439006BA001 /* CountryModel.swift */,
+				15DFEED1240F96B2006BA001 /* CountryListParser.swift */,
+				15DFEEE4241193EE006BA001 /* DownloadOperator.swift */,
+				15DFEEE62412FDE6006BA001 /* DownloadMap.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -110,7 +113,6 @@
 			children = (
 				15DFEEC5240EE461006BA001 /* DeviceMemoryCell.swift */,
 				15DFEEC7240EE479006BA001 /* CountryListCell.swift */,
-				15DFEEC9240EE49B006BA001 /* RegionListCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -142,6 +144,7 @@
 		15DFEEDB241007CD006BA001 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				15DFEECD240EF37B006BA001 /* regions.xml */,
 				15DFEEBA240EDED5006BA001 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -222,10 +225,11 @@
 				15DFEED2240F96B2006BA001 /* CountryListParser.swift in Sources */,
 				15DFEED4240FC77C006BA001 /* Extensions.swift in Sources */,
 				15DFEED0240EF439006BA001 /* CountryModel.swift in Sources */,
+				15DFEEDF24111F6C006BA001 /* CountryRegionsTableViewController.swift in Sources */,
+				15DFEEE5241193EE006BA001 /* DownloadOperator.swift in Sources */,
 				15DFEEC8240EE479006BA001 /* CountryListCell.swift in Sources */,
 				15DFEEB2240EDED3006BA001 /* AppDelegate.swift in Sources */,
-				15DFEEDD241011B3006BA001 /* DownloadOperation.swift in Sources */,
-				15DFEECA240EE49B006BA001 /* RegionListCell.swift in Sources */,
+				15DFEEE72412FDE6006BA001 /* DownloadMap.swift in Sources */,
 				15DFEECC240EE8E3006BA001 /* CountryListTableViewController.swift in Sources */,
 				15DFEEC6240EE461006BA001 /* DeviceMemoryCell.swift in Sources */,
 				15DFEEB4240EDED3006BA001 /* SceneDelegate.swift in Sources */,

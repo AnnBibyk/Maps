@@ -15,6 +15,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" red="0.79607843137254897" green="0.7803921568627451" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="deviceMemoryCell" rowHeight="64" id="5Ts-UQ-0ci" customClass="DeviceMemoryCell" customModule="Maps" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="64"/>
@@ -93,7 +94,7 @@
                                                 <action selector="downloadButtonPressed:" destination="u00-yH-YrD" eventType="touchUpInside" id="Scs-Gu-col"/>
                                             </connections>
                                         </button>
-                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vrk-0t-YhY">
+                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vrk-0t-YhY">
                                             <rect key="frame" x="58" y="35.5" width="271" height="2"/>
                                         </progressView>
                                     </subviews>
@@ -129,51 +130,81 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Download Maps" id="Gww-XE-gL6"/>
                     <connections>
-                        <segue destination="qlX-og-Y2B" kind="show" id="e9Q-Q1-BeE"/>
+                        <segue destination="qlX-og-Y2B" kind="show" identifier="goToRegions" id="e9Q-Q1-BeE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="29I-Fn-GNb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="686.95652173913049" y="176.78571428571428"/>
         </scene>
-        <!--Table View Controller-->
+        <!-- -->
         <scene sceneID="grP-KM-rSB">
             <objects>
-                <tableViewController id="qlX-og-Y2B" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RLf-1G-TbC">
+                <tableViewController id="qlX-og-Y2B" customClass="CountryRegionsTableViewController" customModule="Maps" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RLf-1G-TbC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.79607843140000001" green="0.78039215689999997" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="countryCell" rowHeight="44" id="WoV-50-JTz">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="countryCell" rowHeight="44" id="WoV-50-JTz" customClass="CountryListCell" customModule="Maps" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WoV-50-JTz" id="Mb4-vF-PIe">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07n-Qj-9W5">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07n-Qj-9W5">
                                             <rect key="frame" x="364" y="7" width="30" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="KHL-dI-x1W"/>
+                                                <constraint firstAttribute="width" constant="30" id="Wei-lE-Hxz"/>
+                                            </constraints>
                                             <state key="normal" title="Button" image="ic_custom_dowload"/>
+                                            <connections>
+                                                <action selector="downloadButtonPressed:" destination="WoV-50-JTz" eventType="touchUpInside" id="DwT-Lo-RmQ"/>
+                                            </connections>
                                         </button>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_custom_map" translatesAutoresizingMaskIntoConstraints="NO" id="gN8-XK-uCR">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_custom_map" translatesAutoresizingMaskIntoConstraints="NO" id="gN8-XK-uCR">
                                             <rect key="frame" x="20" y="7" width="30" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="30" id="PdN-GJ-0pF"/>
+                                                <constraint firstAttribute="height" constant="30" id="Z1Y-Tr-g9Z"/>
+                                            </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Country Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwq-HZ-rUt">
-                                            <rect key="frame" x="58" y="11" width="298" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pwq-HZ-rUt">
+                                            <rect key="frame" x="58" y="11" width="111" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="tO1-vT-m3h">
+                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tO1-vT-m3h">
                                             <rect key="frame" x="58" y="35" width="271" height="2"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </progressView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="07n-Qj-9W5" secondAttribute="trailing" constant="20" id="0Yf-sm-mxd"/>
+                                        <constraint firstItem="tO1-vT-m3h" firstAttribute="top" secondItem="pwq-HZ-rUt" secondAttribute="bottom" constant="3.5" id="4pX-GO-4ma"/>
+                                        <constraint firstItem="pwq-HZ-rUt" firstAttribute="top" secondItem="Mb4-vF-PIe" secondAttribute="topMargin" id="R3w-OI-c1a"/>
+                                        <constraint firstItem="07n-Qj-9W5" firstAttribute="top" secondItem="Mb4-vF-PIe" secondAttribute="top" constant="7" id="Y73-dg-fiZ"/>
+                                        <constraint firstItem="gN8-XK-uCR" firstAttribute="top" secondItem="Mb4-vF-PIe" secondAttribute="top" constant="7" id="iER-wc-w5J"/>
+                                        <constraint firstAttribute="bottom" secondItem="gN8-XK-uCR" secondAttribute="bottom" constant="7" id="lkk-P4-atu"/>
+                                        <constraint firstItem="pwq-HZ-rUt" firstAttribute="leading" secondItem="gN8-XK-uCR" secondAttribute="trailing" constant="8" id="p2N-tZ-53B"/>
+                                        <constraint firstAttribute="bottom" secondItem="tO1-vT-m3h" secondAttribute="bottom" constant="7" id="pzW-tS-EiU"/>
+                                        <constraint firstItem="tO1-vT-m3h" firstAttribute="top" secondItem="pwq-HZ-rUt" secondAttribute="bottom" constant="3.5" id="s0G-Fm-fiU"/>
+                                        <constraint firstItem="tO1-vT-m3h" firstAttribute="leading" secondItem="Mb4-vF-PIe" secondAttribute="leading" constant="58" id="uyH-Bs-Rco"/>
+                                        <constraint firstItem="gN8-XK-uCR" firstAttribute="leading" secondItem="Mb4-vF-PIe" secondAttribute="leading" constant="20" id="whz-p2-hF0"/>
+                                        <constraint firstAttribute="bottom" secondItem="07n-Qj-9W5" secondAttribute="bottom" constant="7" id="wyM-HA-ADg"/>
+                                        <constraint firstAttribute="trailing" secondItem="tO1-vT-m3h" secondAttribute="trailing" constant="85" id="xGI-y5-ADO"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="countryNameLabel" destination="pwq-HZ-rUt" id="fRY-n9-c4r"/>
+                                    <outlet property="downloadButton" destination="07n-Qj-9W5" id="5gw-Fo-61o"/>
+                                    <outlet property="downloadingProgress" destination="tO1-vT-m3h" id="YjE-dj-CHN"/>
+                                    <outlet property="mapIconImage" destination="gN8-XK-uCR" id="1b6-Ni-KgB"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -181,7 +212,7 @@
                             <outlet property="delegate" destination="qlX-og-Y2B" id="xMo-4B-kC6"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Vgy-ET-nyP"/>
+                    <navigationItem key="navigationItem" title=" " largeTitleDisplayMode="never" id="Vgy-ET-nyP"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOb-D3-cES" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -197,7 +228,7 @@
                         <color key="backgroundColor" red="1" green="0.53333333333333333" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="1" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="largeTitleTextAttributes">
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="33"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                     </navigationBar>

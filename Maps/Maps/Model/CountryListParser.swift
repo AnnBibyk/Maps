@@ -9,14 +9,14 @@
 import Foundation
 
 class CountryListParser: NSObject, XMLParserDelegate {
-
+    
     var level: Int = -1
     private var regionItem: [Region] = []
     private var parserCompletionHandler: (([Region]) -> Void)?
-
+    
     func parseCountriesList(complitionHandler: (([Region]) -> Void)?) {
         self.parserCompletionHandler = complitionHandler
-
+        
         if let path = Bundle.main.url(forResource: "regions", withExtension: "xml") {
             if let parser = XMLParser(contentsOf: path) {
                 parser.delegate = self
@@ -26,28 +26,49 @@ class CountryListParser: NSObject, XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String] = [:]) {
-
+        
         if elementName == "region" {
             level += 1
-            
-            guard let countryName = attributeDict["name"]?.capitalized else { return }
+            guard let countryName = attributeDict["name"] else { return }
             let type = attributeDict["type"]
-            let innerDownloadSuffix = attributeDict["innerDownloadSuffix"]
-            let innerDownloadPrefix = attributeDict["innerDownloadPrefix"]
+            let innerDownloadSuffix = attributeDict["inner_download_suffix"]
+            var downloadSuffix = attributeDict["download_suffix"]
+            let innerDownloadPrefix = attributeDict["inner_download_prefix"]
+            var downloadPrefix = attributeDict["download_prefix"]
             let map = attributeDict["map"] == "yes" ? true : false
             let joinMapFiles = attributeDict["join_map_files"] == "yes" ? true : false
             let regions = [Region]()
             
+            var i = level-1
+            while i >= 0 && downloadSuffix == nil{
+                downloadSuffix = regionItem[i].innerDownloadSuffix
+                i-=1
+            }
+            if downloadSuffix == "$name"{
+                downloadSuffix = regionItem[i+1].regionName
+            }
+            i = level-1
+            while i >= 0 && downloadPrefix == nil{
+                downloadPrefix = regionItem[i].innerDownloadPrefix
+                i-=1
+            }
+            if downloadPrefix == "$name"{
+                downloadPrefix = regionItem[i+1].regionName
+            }
+            
+            
             regionItem.append(Region(regionName: countryName,
                                      type: type,
                                      innerDownloadSuffix: innerDownloadSuffix,
+                                     downloadSuffix: downloadSuffix,
                                      innerDownloadPrefix: innerDownloadPrefix,
+                                     downloadPrefix: downloadPrefix,
                                      map: map,
                                      joinMapFiles: joinMapFiles,
                                      regions: regions))
         }
     }
-
+    
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "region" {
             if level > 0 {
@@ -57,13 +78,12 @@ class CountryListParser: NSObject, XMLParserDelegate {
             level -= 1
         }
     }
-
+    
     func parserDidEndDocument(_ parser: XMLParser) {
         parserCompletionHandler?(regionItem)
     }
-
+    
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         print(parseError.localizedDescription)
     }
 }
-

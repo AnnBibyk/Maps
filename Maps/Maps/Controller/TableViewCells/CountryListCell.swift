@@ -8,65 +8,55 @@
 
 import UIKit
 
-class CountryListCell: UITableViewCell {
+protocol CountryListCellDelegate {
+    func downloadButtonPressed(_ cell: CountryListCell)
+}
 
+class CountryListCell: UITableViewCell {
+    
     @IBOutlet weak var mapIconImage: UIImageView!
     @IBOutlet weak var countryNameLabel: UILabel!
     @IBOutlet weak var downloadButton: UIButton!
     @IBOutlet weak var downloadingProgress: UIProgressView!
     
-    let queue = OperationQueue()
-    let baseURL = "http://download.osmand.net/download.php?standard=yes"
-    var urls = [URL]()
-//        URL(string: "http://download.osmand.net/download.php?standard=yes&file=Denmark_europe_2.obf.zip")!,
-//        URL(string: "http://download.osmand.net/download.php?standard=yes&file=Germany_berlin_europe_2.obf.zip")!,
-//        URL(string: "http://download.osmand.net/download.php?standard=yes&file=France_corse_europe_2.obf.zip")!,
-//    ]
+    var delegate: CountryListCellDelegate?
+    var downloadOper :DownloadOperation?
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
-    func configure(region: Region, downloaded: Bool) { //, download: Download?) {
-        
-        queue.maxConcurrentOperationCount = 1
-        
-        countryNameLabel.text = region.regionName
+    func configure(region: Region) {
+
+        countryNameLabel.text = region.regionName.capitalized
         if region.regions?.count != 0 {
             downloadButton.setImage(UIImage(named: "ic_custom_chevron"), for: .normal)
             downloadButton.isUserInteractionEnabled = false
         } else {
             downloadButton.setImage(UIImage(named: "ic_custom_dowload"), for: .normal)
+            //self.isUserInteractionEnabled = false
         }
         downloadingProgress.isHidden = true
+        mapIconImage.image = mapIconImage.image?.withRenderingMode(.alwaysTemplate)
+        mapIconImage.tintColor = region.downloaded ? .systemGreen : .lightGray
     }
     
-    @IBAction func downloadButtonPressed(_ sender: Any) {
+    @IBAction func downloadButtonPressed(_ sender: AnyObject) {
+        
+        delegate?.downloadButtonPressed(self)
         print("Download")
-        downloadingProgress.isHidden = false
-        urls.append(URL(string: "http://download.osmand.net/download.php?standard=yes&file=Denmark_europe_2.obf.zip")!)
-        
-        for url in urls {
-            let operation = DownloadOperation(session: URLSession.shared, downloadTaskURL: url, completionHandler: { (localURL, response, error) in
-                //print(response)
-                print("finished downloading \(url.absoluteString)")
-            })
-            
-            queue.addOperation(operation)
-            
-        }
-        
     }
     
-    func updateDisplay(progress: Float, totalSize : String) {
-      downloadingProgress.progress = progress
-//      progressLabel.text = String(format: "%.1f%% of %@", progress * 100, totalSize)
+    func updateDisplay(progress: Float) {
+        print(progress)
+        downloadingProgress.isHidden = false
+        downloadingProgress.progress = progress
+        downloadButton.isUserInteractionEnabled = true
+        
     }
     
 }
