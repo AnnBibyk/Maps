@@ -10,21 +10,21 @@ import UIKit
 
 class CountryListTableViewController: UITableViewController {
     
-    var countries: [Region] = []
-    var queue = OperationQueue()
-    var selectedCountry : IndexPath?
-    var totalDeviceSpace : String = {
+    private var countries: [Region] = []
+    private var queue = OperationQueue()
+    private var selectedCountry : IndexPath?
+    private var totalDeviceSpace : String = {
         var totalSpace = String()
         totalSpace = UIDevice.current.totalDiskSpaceInGB
         return totalSpace
     }()
     
-    var freeDeviceSpace : String = {
+    private var freeDeviceSpace : String = {
         let freeSpace = UIDevice.current.freeDiskSpaceInGB
         return freeSpace
     }()
     
-    var usedDeviceSpace : String = {
+    private var usedDeviceSpace : String = {
         let usedSpace = UIDevice.current.usedDiskSpaceInGB
         return usedSpace
     }()
@@ -99,7 +99,6 @@ class CountryListTableViewController: UITableViewController {
         if segue.identifier == "goToRegions" {
             if let vc = segue.destination as? CountryRegionsTableViewController {
                 vc.regions = countries[self.selectedCountry!.row].regions!
-                vc.country = countries[self.selectedCountry!.row].regionName
             }
         }
     }

@@ -15,11 +15,11 @@ protocol UpdateCellViewDelegate {
 
 class DownloadMap  {
     
-    var indexPath: IndexPath?
+    private var indexPath: IndexPath?
     var region : Region?
-    var vc : UITableViewController?
-    let baseURL = "http://download.osmand.net/download.php?standard=yes&file="
-    let queue: OperationQueue?
+    private var vc : UITableViewController?
+    private let baseURL = "http://download.osmand.net/download.php?standard=yes&file="
+    private let queue: OperationQueue?
     var delegate : UpdateCellViewDelegate?
     
     init(vc : UITableViewController, region : Region,queue:OperationQueue, indexPath : IndexPath) {

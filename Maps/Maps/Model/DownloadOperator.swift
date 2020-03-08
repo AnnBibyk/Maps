@@ -22,7 +22,7 @@ class DownloadOperation : Operation {
     
     private var task : URLSessionDownloadTask!
     private var observation: NSKeyValueObservation?
-    var downloadProgress : Float?
+    private var downloadProgress : Float?
     var delegate: DownloadOperatorDelegate?
     
     private var state : OperationState = .ready {

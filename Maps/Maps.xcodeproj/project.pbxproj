@@ -92,6 +92,7 @@
 			children = (
 				15DFEECB240EE8E3006BA001 /* CountryListTableViewController.swift */,
 				15DFEEDE24111F6C006BA001 /* CountryRegionsTableViewController.swift */,
+				15DFEEE62412FDE6006BA001 /* DownloadMap.swift */,
 				15DFEED7240FF66C006BA001 /* TableViewCells */,
 			);
 			path = Controller;
@@ -103,7 +104,6 @@
 				15DFEECF240EF439006BA001 /* CountryModel.swift */,
 				15DFEED1240F96B2006BA001 /* CountryListParser.swift */,
 				15DFEEE4241193EE006BA001 /* DownloadOperator.swift */,
-				15DFEEE62412FDE6006BA001 /* DownloadMap.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

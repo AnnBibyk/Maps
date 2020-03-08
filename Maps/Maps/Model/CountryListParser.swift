@@ -10,7 +10,7 @@ import Foundation
 
 class CountryListParser: NSObject, XMLParserDelegate {
     
-    var level: Int = -1
+    private var level: Int = -1
     private var regionItem: [Region] = []
     private var parserCompletionHandler: (([Region]) -> Void)?
     

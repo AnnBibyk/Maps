@@ -11,9 +11,8 @@ import UIKit
 class CountryRegionsTableViewController: UITableViewController {
 
     var regions = [Region]()
-    var queue = OperationQueue()
-    var country = String()
-    var selectedRow = Int()
+    private var queue = OperationQueue()
+    private var selectedRow = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
